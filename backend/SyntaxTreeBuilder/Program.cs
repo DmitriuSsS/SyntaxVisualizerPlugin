@@ -6,26 +6,26 @@ using SyntaxTreeBuilder.Builder;
 
 namespace SyntaxTreeBuilder
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var filePath = args[0];
-            Console.Out.Write(GetJsonTree(new FileInfo(filePath)));
+            var encoding = args.Length >= 2 ? Encoding.GetEncoding(args[1]) : null;
+            Console.Write(GetJsonTree(filePath, encoding));
         }
         
-        private static string GetJsonTree(FileInfo file, Encoding encoding = null)
+        public static string GetJsonTree(string path, Encoding encoding = null)
         {
             encoding ??= Encoding.UTF8;
             var code = string.Empty;
 
-            if (file.Exists)
+            if (File.Exists(path))
             {
-                using var stream = new StreamReader(file.OpenRead(), encoding);
-                code = stream.ReadToEnd();
+                code = File.ReadAllText(path, encoding);
             }
 
-            var tree = new MySyntaxTree(code);
+            var tree = SimpleSyntaxNode.FromSourceCode(code);
             return JsonSerializer.Serialize(tree);
         }
     }
