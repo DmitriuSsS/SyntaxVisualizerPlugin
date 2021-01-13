@@ -1,21 +1,16 @@
 <idea-plugin>
-    <id>org.syntax.visualizer.SyntaxVisualizer</id>
+    <id>com.syntax.visualizer.plugin</id>
     <name>Syntax Visualizer for Rider</name>
-    <version>0.1</version>
     <vendor email="dmitruish@outlook.com">Dima</vendor>
 
     <description>Plugin to view syntax tree of C# code for Rider</description>
 
-    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.rider</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <toolWindow id="Syntax Tree Viewer" secondary="true" factoryClass="com.syntax.visualizer.plugin.ui.MainPanelFactory"/>
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
     </actions>
 </idea-plugin>

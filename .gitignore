@@ -26,3 +26,10 @@ hs_err_pid*
 .gradle/
 build/
 .idea
+
+# for C#
+**/.idea
+**/.vs
+**/[Bb]in
+**/[Oo]bj
+**/backend.sln.DotSettings.user
