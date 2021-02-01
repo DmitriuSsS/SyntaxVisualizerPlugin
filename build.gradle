@@ -5,6 +5,7 @@ plugins {
 
 group 'com.syntax.visualizer.plugin'
 version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
