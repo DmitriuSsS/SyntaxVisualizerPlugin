@@ -8,20 +8,17 @@ import javax.swing.*;
 
 public class MainPanel {
     private SyntaxTreeUI tree;
-    private JButton linkButton;
     private JPanel content;
-    private JButton buildButton;
+    private JButton refreshButton;
 
     public MainPanel(Project project) {
-        linkButton.addActionListener(e -> {
+        refreshButton.addActionListener(e -> {
             Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
             if (editor == null)
                 return;
 
-            tree.LinkDocument(editor.getDocument());
+            tree.Refresh(editor.getDocument());
         });
-
-        buildButton.addActionListener(e -> tree.Build());
     }
 
     public JPanel getContent() {

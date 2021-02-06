@@ -6,6 +6,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.syntax.visualizer.plugin.utils.SyntaxTreeParser;
 import com.syntax.visualizer.plugin.utils.SyntaxTree;
 import com.syntax.visualizer.plugin.utils.TreeBuilder;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -22,32 +23,21 @@ public class SyntaxTreeUI extends JTree {
         treeParser = new SyntaxTreeParser();
     }
 
-    public void Build() {
+    public void Refresh(Document newDocument) {
         new Thread(() -> {
-            if (codeDocument == null)
+            if (newDocument == null)
                 return;
+
+            VirtualFile file = FileDocumentManager.getInstance().getFile(newDocument);
+            if (file == null || !Objects.equals(file.getExtension(), "cs"))
+                return;
+
+            codeDocument = newDocument;
 
             SyntaxTree newTree = treeParser.GetSyntaxTreeFromDocument(codeDocument);
             DefaultMutableTreeNode root = TreeBuilder.GetRootNode(newTree);
 
             setModel(new DefaultTreeModel(root));
-        }).start();
-    }
-
-    public void LinkDocument(Document newDocument) {
-        new Thread(() -> {
-            if (newDocument == null || newDocument == codeDocument)
-                return;
-
-            VirtualFile file = FileDocumentManager.getInstance().getFile(newDocument);
-            if (file == null)
-                return;
-
-            if (!Objects.equals(file.getExtension(), "cs"))
-                return;
-
-            codeDocument = newDocument;
-            Build();
         }).start();
     }
 }
