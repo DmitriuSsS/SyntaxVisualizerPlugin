@@ -30,8 +30,6 @@ public class SyntaxTreeCellRenderer extends DefaultTreeCellRenderer {
 
         SyntaxTree node =  (SyntaxTree) ((DefaultMutableTreeNode) value).getUserObject();
 
-        setForeground(hasFocus ? Color.WHITE : Color.BLACK);
-
         switch (node.Type) {
             case "Node":
                 setIcon(nodeIcon);
