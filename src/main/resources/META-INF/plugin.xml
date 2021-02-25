@@ -9,6 +9,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Syntax Tree Viewer" secondary="true" factoryClass="com.syntax.visualizer.plugin.ui.MainPanelFactory"/>
+        <backgroundPostStartupActivity implementation="com.syntax.visualizer.plugin.Uninstall"/>
     </extensions>
 
     <actions>

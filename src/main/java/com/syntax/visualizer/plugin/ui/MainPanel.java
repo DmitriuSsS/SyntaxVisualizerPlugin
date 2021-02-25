@@ -10,6 +10,8 @@ public class MainPanel {
     private SyntaxTreeUI tree;
     private JPanel content;
     private JButton refreshButton;
+    private JScrollPane scroll;
+    private JPanel updateLay;
 
     public MainPanel(Project project) {
         refreshButton.addActionListener(e -> {
@@ -17,7 +19,17 @@ public class MainPanel {
             if (editor == null)
                 return;
 
-            tree.Refresh(editor.getDocument());
+            refreshButton.setEnabled(false);
+            updateLay.setVisible(true);
+            scroll.setVisible(false);
+
+            new Thread(() -> {
+                tree.Refresh(editor.getDocument());
+
+                scroll.setVisible(true);
+                updateLay.setVisible(false);
+                refreshButton.setEnabled(true);
+            }).start();
         });
     }
 

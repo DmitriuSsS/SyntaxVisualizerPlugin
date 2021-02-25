@@ -5,6 +5,7 @@ plugins {
 
 group 'com.syntax.visualizer.plugin'
 version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -12,14 +13,28 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'net.lingala.zip4j', name: 'zip4j', version: '1.2.4'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version 'RD-2020.2'
 }
-patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+
+task buildCSharpProj(type: Exec) {
+    workingDir "${projectDir}/backend"
+    commandLine 'dotnet'
+    args 'publish'
+}
+
+task createArchive(type: Zip) {
+    from "${projectDir}/backend/SyntaxTreeBuilder/"
+    include '**/*'
+    archiveName "${projectDir}/src/main/resources/SyntaxTreeBuilder.zip"
+}
+
+processResources.dependsOn {
+    createArchive
+}.dependsOn {
+    buildCSharpProj
 }
