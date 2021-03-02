@@ -1,4 +1,4 @@
-package com.syntax.visualizer.plugin.icons;
+package com.syntax.visualizer.plugin.globals;
 
 import com.intellij.openapi.util.IconLoader;
 import javax.swing.*;

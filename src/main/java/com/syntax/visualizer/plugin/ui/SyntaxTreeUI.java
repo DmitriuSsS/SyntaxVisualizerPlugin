@@ -21,7 +21,7 @@ public class SyntaxTreeUI extends JTree {
         treeParser = new SyntaxTreeParser();
     }
 
-    public void Refresh(Document document) {
+    public void refresh(Document document) {
         if (document == null)
             return;
 
@@ -29,7 +29,7 @@ public class SyntaxTreeUI extends JTree {
         if (file == null || !Objects.equals(file.getExtension(), "cs"))
             return;
 
-        SyntaxTree newTree = treeParser.GetSyntaxTreeFromDocument(document);
+        SyntaxTree newTree = treeParser.getSyntaxTreeFromDocument(document);
         DefaultMutableTreeNode root = TreeBuilder.GetRootNode(newTree);
 
         setModel(new DefaultTreeModel(root));

@@ -1,30 +1,27 @@
-package com.syntax.visualizer.plugin;
+package com.syntax.visualizer.plugin.activities;
 
-import com.intellij.ide.BrowserUtil;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginInstaller;
 import com.intellij.ide.plugins.PluginStateListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
-import com.syntax.visualizer.plugin.utils.FileWorker;
+import com.syntax.visualizer.plugin.globals.LocalFiles;
 import org.jetbrains.annotations.NotNull;
 
-import java.nio.file.Paths;
+import static com.syntax.visualizer.plugin.utils.FileWorker.DeleteIfExist;
 
 
-public class Uninstall implements StartupActivity {
-
+public class UninstallActivity implements StartupActivity {
     @Override
     public void runActivity(@NotNull Project project) {
         PluginInstaller.addStateListener(new PluginStateListener() {
             @Override
-            public void install(@NotNull IdeaPluginDescriptor descriptor) {
-            }
+            public void install(@NotNull IdeaPluginDescriptor descriptor) { }
 
             @Override
             public void uninstall(@NotNull IdeaPluginDescriptor descriptor) {
-                if (!FileWorker.DeleteFile(Paths.get(System.getProperty("user.dir"), "SyntaxTreeBuilder").toFile())){
-                    throw new RuntimeException();
+                if (!DeleteIfExist(LocalFiles.BackendFolder)){
+                    throw new RuntimeException("Failed to delete project");
                 }
             }
         });

@@ -2,27 +2,25 @@ package com.syntax.visualizer.plugin.utils;
 
 import com.google.gson.Gson;
 import com.intellij.openapi.editor.Document;
-
-import java.nio.file.Paths;
+import com.syntax.visualizer.plugin.globals.LocalFiles;
 
 public class SyntaxTreeParser {
     private static final Gson parser = new Gson();
 
-    public SyntaxTree GetSyntaxTreeFromJson(String json) {
+    public SyntaxTree getSyntaxTreeFromJson(String json) {
         return parser.fromJson(json, SyntaxTree.class);
     }
 
-    public SyntaxTree GetSyntaxTreeFromCode(String code) {
-        final String json = Executor.Exec(GetCommand(code));
-        return GetSyntaxTreeFromJson(json);
+    public SyntaxTree getSyntaxTreeFromCode(String code) {
+        final String json = Executor.Exec(getCommand(code));
+        return getSyntaxTreeFromJson(json);
     }
 
-    public SyntaxTree GetSyntaxTreeFromDocument(Document doc) {
-        return GetSyntaxTreeFromCode(doc.getText());
+    public SyntaxTree getSyntaxTreeFromDocument(Document doc) {
+        return getSyntaxTreeFromCode(doc.getText());
     }
 
-    private String[] GetCommand(String code) {
-        String pathToProj = Paths.get(System.getProperty("user.dir"), "SyntaxTreeBuilder").toString();
-        return new String[] {"dotnet", "run", "--no-build", "--project", pathToProj, "--", "-c", code };
+    private String[] getCommand(String code) {
+        return new String[] {"dotnet", LocalFiles.ASTBuilderDll.getAbsolutePath(), "-c", code };
     }
 }

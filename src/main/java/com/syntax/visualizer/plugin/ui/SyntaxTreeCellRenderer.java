@@ -1,6 +1,6 @@
 package com.syntax.visualizer.plugin.ui;
 
-import com.syntax.visualizer.plugin.icons.TreeIcons;
+import com.syntax.visualizer.plugin.globals.TreeIcons;
 import com.syntax.visualizer.plugin.utils.SyntaxTree;
 
 import javax.swing.*;

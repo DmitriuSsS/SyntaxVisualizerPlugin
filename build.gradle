@@ -13,7 +13,6 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation group: 'net.lingala.zip4j', name: 'zip4j', version: '1.2.4'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
@@ -22,13 +21,13 @@ intellij {
 }
 
 task buildCSharpProj(type: Exec) {
-    workingDir "${projectDir}/backend"
+    workingDir "${projectDir}/backend/SyntaxTreeBuilder"
     commandLine 'dotnet'
     args 'publish'
 }
 
 task createArchive(type: Zip) {
-    from "${projectDir}/backend/SyntaxTreeBuilder/"
+    from "${projectDir}/backend/SyntaxTreeBuilder/bin/Debug/netcoreapp3.1/publish/"
     include '**/*'
     archiveName "${projectDir}/src/main/resources/SyntaxTreeBuilder.zip"
 }

@@ -1,4 +1,4 @@
-<idea-plugin>
+<idea-plugin require-restart="true">
     <id>com.syntax.visualizer.plugin</id>
     <name>Syntax Visualizer for Rider</name>
     <vendor email="dmitruish@outlook.com">Dima</vendor>
@@ -9,7 +9,8 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Syntax Tree Viewer" secondary="true" factoryClass="com.syntax.visualizer.plugin.ui.MainPanelFactory"/>
-        <backgroundPostStartupActivity implementation="com.syntax.visualizer.plugin.Uninstall"/>
+        <preloadingActivity implementation="com.syntax.visualizer.plugin.activities.LoadProjectActivity"/>
+        <postStartupActivity implementation="com.syntax.visualizer.plugin.activities.UninstallActivity"/>
     </extensions>
 
     <actions>

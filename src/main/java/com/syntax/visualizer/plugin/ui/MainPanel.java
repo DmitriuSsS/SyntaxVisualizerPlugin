@@ -19,18 +19,19 @@ public class MainPanel {
             if (editor == null)
                 return;
 
-            refreshButton.setEnabled(false);
-            updateLay.setVisible(true);
-            scroll.setVisible(false);
+            setTreeVisible(false);
 
             new Thread(() -> {
-                tree.Refresh(editor.getDocument());
-
-                scroll.setVisible(true);
-                updateLay.setVisible(false);
-                refreshButton.setEnabled(true);
+                tree.refresh(editor.getDocument());
+                setTreeVisible(true);
             }).start();
         });
+    }
+
+    private void setTreeVisible(boolean enable) {
+        scroll.setVisible(enable);
+        updateLay.setVisible(!enable);
+        refreshButton.setEnabled(enable);
     }
 
     public JPanel getContent() {
