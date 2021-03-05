@@ -1,6 +1,8 @@
 package com.syntax.visualizer.plugin.ui;
 
+import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 
@@ -19,10 +21,13 @@ public class MainPanel {
             if (editor == null)
                 return;
 
+            Document document = editor.getDocument();
+            FileDocumentManager.getInstance().saveDocument(document);
+
             setTreeVisible(false);
 
             new Thread(() -> {
-                tree.refresh(editor.getDocument());
+                tree.refresh(document);
                 setTreeVisible(true);
             }).start();
         });

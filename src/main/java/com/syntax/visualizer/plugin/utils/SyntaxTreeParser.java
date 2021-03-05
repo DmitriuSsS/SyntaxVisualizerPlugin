@@ -1,7 +1,6 @@
 package com.syntax.visualizer.plugin.utils;
 
 import com.google.gson.Gson;
-import com.intellij.openapi.editor.Document;
 import com.syntax.visualizer.plugin.globals.LocalFiles;
 
 public class SyntaxTreeParser {
@@ -16,11 +15,11 @@ public class SyntaxTreeParser {
         return getSyntaxTreeFromJson(json);
     }
 
-    public SyntaxTree getSyntaxTreeFromDocument(Document doc) {
-        return getSyntaxTreeFromCode(doc.getText());
+    public SyntaxTree getSyntaxTreeFromDocument(String pathToDoc) {
+        return getSyntaxTreeFromCode(pathToDoc);
     }
 
-    private String[] getCommand(String code) {
-        return new String[] {"dotnet", LocalFiles.ASTBuilderDll.getAbsolutePath(), "-c", code };
+    private String[] getCommand(String pathToCode) {
+        return new String[] {"dotnet", LocalFiles.ASTBuilderDll.getAbsolutePath(), "-f", pathToCode };
     }
 }
