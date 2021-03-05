@@ -23,11 +23,11 @@ intellij {
 task buildCSharpProj(type: Exec) {
     workingDir "${projectDir}/backend/SyntaxTreeBuilder"
     commandLine 'dotnet'
-    args 'publish'
+    args 'publish', '--configuration', 'Publish', '--output', 'publishProj'
 }
 
 task createArchive(type: Zip) {
-    from "${projectDir}/backend/SyntaxTreeBuilder/bin/Debug/netcoreapp3.1/publish/"
+    from "${projectDir}/backend/SyntaxTreeBuilder/publishProj/"
     include '**/*'
     archiveName "${projectDir}/src/main/resources/SyntaxTreeBuilder.zip"
 }
