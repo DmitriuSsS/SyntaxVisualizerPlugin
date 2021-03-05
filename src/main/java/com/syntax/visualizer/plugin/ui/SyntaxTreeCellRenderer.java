@@ -1,5 +1,6 @@
 package com.syntax.visualizer.plugin.ui;
 
+import com.syntax.visualizer.plugin.globals.TreeIcons;
 import com.syntax.visualizer.plugin.utils.SyntaxTree;
 
 import javax.swing.*;
@@ -8,19 +9,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
 
 public class SyntaxTreeCellRenderer extends DefaultTreeCellRenderer {
-    private final Icon nodeIcon;
-    private final Icon tokenIcon;
-    private final Icon valueIcon;
-    private final Icon triviaIcon;
-
     public SyntaxTreeCellRenderer() {
         super();
-
-        nodeIcon = new ImageIcon(getClass().getResource("/icons/node.png"));
-        tokenIcon = new ImageIcon(getClass().getResource("/icons/token.png"));
-        valueIcon = new ImageIcon(getClass().getResource("/icons/value.png"));
-        triviaIcon = new ImageIcon(getClass().getResource("/icons/trivia.png"));
-
         setBackgroundNonSelectionColor(new Color(0x0, true));
     }
 
@@ -30,16 +20,14 @@ public class SyntaxTreeCellRenderer extends DefaultTreeCellRenderer {
 
         SyntaxTree node =  (SyntaxTree) ((DefaultMutableTreeNode) value).getUserObject();
 
-        setForeground(hasFocus ? Color.WHITE : Color.BLACK);
-
         switch (node.Type) {
             case "Node":
-                setIcon(nodeIcon);
+                setIcon(TreeIcons.Node);
                 setText(node.Kind);
                 break;
 
             case "Token":
-                setIcon(tokenIcon);
+                setIcon(TreeIcons.Token);
                 if (leaf) {
                     setText(String.format("%s: \"%s\"", node.Kind, node.Value));
                 } else {
@@ -48,12 +36,12 @@ public class SyntaxTreeCellRenderer extends DefaultTreeCellRenderer {
                 break;
 
             case "Value":
-                setIcon(valueIcon);
+                setIcon(TreeIcons.Value);
                 setText(node.Value);
                 break;
 
             case "Trivia":
-                setIcon(triviaIcon);
+                setIcon(TreeIcons.Trivia);
                 setText(String.format("%s: \"%s\"", node.Kind, node.Value));
                 break;
 

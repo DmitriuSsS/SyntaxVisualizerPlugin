@@ -8,20 +8,30 @@ import javax.swing.*;
 
 public class MainPanel {
     private SyntaxTreeUI tree;
-    private JButton linkButton;
     private JPanel content;
-    private JButton buildButton;
+    private JButton refreshButton;
+    private JScrollPane scroll;
+    private JPanel updateLay;
 
     public MainPanel(Project project) {
-        linkButton.addActionListener(e -> {
+        refreshButton.addActionListener(e -> {
             Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
             if (editor == null)
                 return;
 
-            tree.LinkDocument(editor.getDocument());
-        });
+            setTreeVisible(false);
 
-        buildButton.addActionListener(e -> tree.Build());
+            new Thread(() -> {
+                tree.refresh(editor.getDocument());
+                setTreeVisible(true);
+            }).start();
+        });
+    }
+
+    private void setTreeVisible(boolean enable) {
+        scroll.setVisible(enable);
+        updateLay.setVisible(!enable);
+        refreshButton.setEnabled(enable);
     }
 
     public JPanel getContent() {

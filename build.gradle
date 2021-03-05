@@ -19,8 +19,21 @@ dependencies {
 intellij {
     version 'RD-2020.2'
 }
-patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+
+task buildCSharpProj(type: Exec) {
+    workingDir "${projectDir}/backend/SyntaxTreeBuilder"
+    commandLine 'dotnet'
+    args 'publish', '--configuration', 'Publish', '--output', 'publishProj'
+}
+
+task createArchive(type: Zip) {
+    from "${projectDir}/backend/SyntaxTreeBuilder/publishProj/"
+    include '**/*'
+    archiveName "${projectDir}/src/main/resources/SyntaxTreeBuilder.zip"
+}
+
+processResources.dependsOn {
+    createArchive
+}.dependsOn {
+    buildCSharpProj
 }

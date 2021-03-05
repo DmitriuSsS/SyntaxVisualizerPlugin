@@ -33,3 +33,4 @@ build/
 **/[Bb]in
 **/[Oo]bj
 **/backend.sln.DotSettings.user
+**/publishProj
