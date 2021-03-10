@@ -1,6 +1,6 @@
 package com.syntax.visualizer.plugin.ui;
 
-import com.syntax.visualizer.plugin.globals.TreeIcons;
+import com.syntax.visualizer.plugin.globals.Icons;
 import com.syntax.visualizer.plugin.utils.SyntaxTree;
 
 import javax.swing.*;
@@ -22,12 +22,12 @@ public class SyntaxTreeCellRenderer extends DefaultTreeCellRenderer {
 
         switch (node.Type) {
             case "Node":
-                setIcon(TreeIcons.Node);
+                setIcon(Icons.Node);
                 setText(node.Kind);
                 break;
 
             case "Token":
-                setIcon(TreeIcons.Token);
+                setIcon(Icons.Token);
                 if (leaf) {
                     setText(String.format("%s: \"%s\"", node.Kind, node.Value));
                 } else {
@@ -36,12 +36,12 @@ public class SyntaxTreeCellRenderer extends DefaultTreeCellRenderer {
                 break;
 
             case "Value":
-                setIcon(TreeIcons.Value);
+                setIcon(Icons.Value);
                 setText(node.Value);
                 break;
 
             case "Trivia":
-                setIcon(TreeIcons.Trivia);
+                setIcon(Icons.Trivia);
                 setText(String.format("%s: \"%s\"", node.Kind, node.Value));
                 break;
 
