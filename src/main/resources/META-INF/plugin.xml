@@ -3,7 +3,21 @@
     <name>Syntax Visualizer for Rider</name>
     <vendor email="dmitruish@outlook.com">Dima</vendor>
 
-    <description>Plugin to view syntax tree of C# code for Rider</description>
+    <description><![CDATA[
+        <p>Plugin to view syntax tree of C# code for Rider.</p>
+        <br>
+        <p>
+            This plugin provides the ability to view a simplified C# code syntax tree built with <a href="https://github.com/dotnet/roslyn" target="_blank">Roslyn</a>.
+        </p>
+        <br>
+        <p>AST notation:</p>
+        <ul>
+            <li><img src="https://github.com/DmitriuSsS/SyntaxVisualizerPlugin/blob/main/src/main/resources/icons/node.svg?raw=true" alt="node"> - Node</li>
+            <li><img src="https://github.com/DmitriuSsS/SyntaxVisualizerPlugin/blob/main/src/main/resources/icons/token.svg?raw=true" alt="token"> - Token</li>
+            <li><img src="https://github.com/DmitriuSsS/SyntaxVisualizerPlugin/blob/main/src/main/resources/icons/trivia.svg?raw=true" alt="token"> - Trivia</li>
+            <li><img src="https://github.com/DmitriuSsS/SyntaxVisualizerPlugin/blob/main/src/main/resources/icons/value.svg?raw=true" alt="token"> - Value</li>
+        </ul>
+    ]]></description>
 
     <depends>com.intellij.modules.rider</depends>
 
