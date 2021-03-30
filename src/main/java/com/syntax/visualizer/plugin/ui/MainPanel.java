@@ -12,31 +12,45 @@ public class MainPanel {
     private SyntaxTreeUI tree;
     private JPanel content;
     private JButton refreshButton;
+
     private JScrollPane scroll;
     private JPanel updateLay;
+    private JPanel hintLay;
+
+    private enum Lay {
+        Tree,
+        Update,
+        Hint
+    }
 
     public MainPanel(Project project) {
+        viewLay(Lay.Hint);
         refreshButton.addActionListener(e -> {
             Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
-            if (editor == null)
+            if (editor == null) {
+                viewLay(Lay.Hint);
                 return;
+            }
 
             Document document = editor.getDocument();
             FileDocumentManager.getInstance().saveDocument(document);
 
-            setTreeVisible(false);
+            viewLay(Lay.Update);
 
             new Thread(() -> {
-                tree.refresh(document);
-                setTreeVisible(true);
+                if (tree.refresh(document))
+                    viewLay(Lay.Tree);
+                else
+                    viewLay(Lay.Hint);
             }).start();
         });
     }
 
-    private void setTreeVisible(boolean enable) {
-        scroll.setVisible(enable);
-        updateLay.setVisible(!enable);
-        refreshButton.setEnabled(enable);
+    private void viewLay(Lay lay) {
+        scroll.setVisible(lay == Lay.Tree);
+        updateLay.setVisible(lay == Lay.Update);
+        hintLay.setVisible(lay == Lay.Hint);
+        refreshButton.setEnabled(lay != Lay.Update);
     }
 
     public JPanel getContent() {

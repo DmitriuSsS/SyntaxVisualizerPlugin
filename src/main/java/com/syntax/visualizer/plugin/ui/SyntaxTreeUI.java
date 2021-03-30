@@ -16,22 +16,31 @@ public class SyntaxTreeUI extends JTree {
     private final SyntaxTreeParser treeParser;
 
     public SyntaxTreeUI() {
-        setModel(new DefaultTreeModel(null));
+        dropTree();
         setCellRenderer(new SyntaxTreeCellRenderer());
         treeParser = new SyntaxTreeParser();
     }
 
-    public void refresh(Document document) {
-        if (document == null)
-            return;
+    public boolean refresh(Document document) {
+        if (document == null) {
+            dropTree();
+            return false;
+        }
 
         VirtualFile file = FileDocumentManager.getInstance().getFile(document);
-        if (file == null || !Objects.equals(file.getExtension(), "cs"))
-            return;
+        if (file == null || !Objects.equals(file.getExtension(), "cs")) {
+            dropTree();
+            return false;
+        }
 
         SyntaxTree newTree = treeParser.getSyntaxTreeFromDocument(file.getPath());
         DefaultMutableTreeNode root = TreeBuilder.GetRootNode(newTree);
 
         setModel(new DefaultTreeModel(root));
+        return true;
+    }
+
+    private void dropTree() {
+        setModel(new DefaultTreeModel(null));
     }
 }
