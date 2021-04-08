@@ -16,7 +16,7 @@ dependencies {
 }
 
 intellij {
-    version 'RD-2020.2'
+    version 'RD-2020.3'
 }
 
 task buildCSharpProj(type: Exec) {
