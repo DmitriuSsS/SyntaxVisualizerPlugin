@@ -42,7 +42,7 @@ public class SyntaxTreeCellRenderer extends DefaultTreeCellRenderer {
 
             case "Trivia":
                 setIcon(Icons.Trivia);
-                setText(String.format("%s: \"%s\"", node.Kind, node.Value));
+                setText(String.format("%s: \"%s\"", node.Kind, GetScreenTriviaValue(node.Value)));
                 break;
 
             default:
@@ -50,5 +50,17 @@ public class SyntaxTreeCellRenderer extends DefaultTreeCellRenderer {
         }
 
         return this;
+    }
+
+    private String GetScreenTriviaValue(String triviaValue) {
+        if (triviaValue.equals("\r\n")) {
+            return "\\r\\n";
+        } else if (triviaValue.equals("\n")) {
+            return "\\n";
+        } else if (triviaValue.trim().isEmpty()) {
+            return triviaValue.length() == 1 ? "<space>" : String.format("<space:%d>", triviaValue.length());
+        }
+
+        return triviaValue;
     }
 }
