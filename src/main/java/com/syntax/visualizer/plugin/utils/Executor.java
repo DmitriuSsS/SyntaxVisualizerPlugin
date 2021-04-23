@@ -14,9 +14,9 @@ public class Executor {
         try {
             Process child = Runtime.getRuntime().exec(args);
             in = child.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            BufferedReader inputReader = new BufferedReader(new InputStreamReader(in));
 
-            answer = bufferedReader.lines().collect(Collectors.joining());
+            answer = inputReader.lines().collect(Collectors.joining());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

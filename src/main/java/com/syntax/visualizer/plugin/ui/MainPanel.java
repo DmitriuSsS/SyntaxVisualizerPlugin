@@ -16,11 +16,13 @@ public class MainPanel {
     private JScrollPane scroll;
     private JPanel updateLay;
     private JPanel hintLay;
+    private JPanel errorLay;
 
     private enum Lay {
         Tree,
         Update,
-        Hint
+        Hint,
+        Error
     }
 
     public MainPanel(Project project) {
@@ -38,10 +40,14 @@ public class MainPanel {
             viewLay(Lay.Update);
 
             new Thread(() -> {
-                if (tree.refresh(document))
-                    viewLay(Lay.Tree);
-                else
-                    viewLay(Lay.Hint);
+                try {
+                    if (tree.refresh(document))
+                        viewLay(Lay.Tree);
+                    else
+                        viewLay(Lay.Hint);
+                } catch (Exception exc) {
+                    viewLay(Lay.Error);
+                }
             }).start();
         });
     }
@@ -50,6 +56,7 @@ public class MainPanel {
         scroll.setVisible(lay == Lay.Tree);
         updateLay.setVisible(lay == Lay.Update);
         hintLay.setVisible(lay == Lay.Hint);
+        errorLay.setVisible(lay == Lay.Error);
         refreshButton.setEnabled(lay != Lay.Update);
     }
 

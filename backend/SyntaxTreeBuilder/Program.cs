@@ -42,7 +42,8 @@ namespace SyntaxTreeBuilder
             }
 
             var tree = SimpleSyntaxNode.FromSourceCode(code);
-            return JsonSerializer.Serialize(tree);
+            var options = new JsonSerializerOptions { MaxDepth = (int)1e4 };
+            return JsonSerializer.Serialize(tree, typeof(SimpleSyntaxNode), options);
         }
 
         public static string GetJsonTreeFromCode(string code)
