@@ -21,7 +21,7 @@ public class UninstallActivity implements StartupActivity {
             @Override
             public void uninstall(@NotNull IdeaPluginDescriptor descriptor) {
                 if (!DeleteIfExist(LocalFiles.BackendFolder)){
-                    throw new RuntimeException("Failed to delete project");
+                    throw new RuntimeException("Failed to delete extra unpacked resources");
                 }
             }
         });

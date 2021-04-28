@@ -5,8 +5,10 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
+import com.syntax.visualizer.plugin.globals.ProjectLogger;
 
 import javax.swing.*;
+import java.util.logging.Level;
 
 public class MainPanel {
     private SyntaxTreeUI tree;
@@ -46,6 +48,7 @@ public class MainPanel {
                     else
                         viewLay(Lay.Hint);
                 } catch (Exception exc) {
+                    ProjectLogger.LOGGER.log(Level.SEVERE, "Failed to update document tree", exc);
                     viewLay(Lay.Error);
                 }
             }).start();
