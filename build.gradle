@@ -19,6 +19,10 @@ intellij {
     version 'RD-2020.3'
 }
 
+patchPluginXml {
+    untilBuild null
+}
+
 task buildCSharpProj(type: Exec) {
     workingDir "${projectDir}/backend/SyntaxTreeBuilder"
     commandLine 'dotnet'
