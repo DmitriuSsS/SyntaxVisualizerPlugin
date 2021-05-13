@@ -12,7 +12,7 @@ public class LoadProjectActivity extends PreloadingActivity {
         if (!FileWorker.DeleteIfExist(LocalFiles.BackendFolder)){
             throw new RuntimeException("Failed to delete old version of AST builder");
         }
-        if (FileWorker.UnZip(getClass().getResourceAsStream("/SyntaxTreeBuilder.zip"), LocalFiles.BackendFolder)) {
+        if (!FileWorker.UnZip(getClass().getResourceAsStream("/SyntaxTreeBuilder.zip"), LocalFiles.BackendFolder)) {
             throw new RuntimeException("Failed to unzip new version of AST builder");
         }
     }

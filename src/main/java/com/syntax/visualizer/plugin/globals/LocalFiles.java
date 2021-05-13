@@ -10,12 +10,18 @@ public class LocalFiles {
     public static final File ASTBuilderDll = Paths.get(BackendFolder.getAbsolutePath(), "SyntaxTreeBuilder.dll").toFile();
 
     private static String getPathToJar() {
-        String path = Objects.requireNonNull(LocalFiles.class.getResource(".")).getPath();
+        String path = Objects.requireNonNull(LocalFiles.class.getResource(LocalFiles.class.getSimpleName() + ".class")).getPath();
         if (path.startsWith("jar:")) {
             path = path.substring(4);
         }
         if (path.startsWith("file:")) {
             path = path.substring(5);
+        }
+        if (path.startsWith("bundleresource:")) {
+            path = path.substring(15);
+        }
+        while (path.startsWith("\\") || path.startsWith("/")) {
+            path = path.substring(1);
         }
         int index;
         if ((index = path.indexOf("!/")) != -1) {

@@ -16,7 +16,8 @@ dependencies {
 }
 
 intellij {
-    version 'RD-2020.3'
+    type = 'RD'
+    version = '2021.1.2'
 }
 
 patchPluginXml {
