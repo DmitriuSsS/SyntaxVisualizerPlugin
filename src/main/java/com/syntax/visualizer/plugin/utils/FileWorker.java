@@ -1,9 +1,13 @@
 package com.syntax.visualizer.plugin.utils;
 
+import com.syntax.visualizer.plugin.globals.ProjectLogger;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
+import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -47,7 +51,7 @@ public class FileWorker {
             }
             zis.closeEntry();
         } catch (IOException e) {
-            e.printStackTrace();
+            ProjectLogger.LOGGER.log(Level.SEVERE, e.getMessage(), e);
             return false;
         }
         return true;
@@ -55,7 +59,7 @@ public class FileWorker {
 
     public static boolean DeleteFile(File file) {
         if (file.isDirectory()) {
-            for (File _file : file.listFiles()) {
+            for (File _file : Objects.requireNonNull(file.listFiles())) {
                 if (!DeleteFile(_file))
                     return false;
             }

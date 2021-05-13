@@ -9,9 +9,11 @@ import org.jetbrains.annotations.NotNull;
 public class LoadProjectActivity extends PreloadingActivity {
     @Override
     public void preload(@NotNull ProgressIndicator indicator) {
-        if (!(FileWorker.DeleteIfExist(LocalFiles.BackendFolder) &&
-                FileWorker.UnZip(getClass().getResourceAsStream("/SyntaxTreeBuilder.zip"), LocalFiles.BackendFolder))) {
-            throw new RuntimeException("Failed to load project");
+        if (!FileWorker.DeleteIfExist(LocalFiles.BackendFolder)){
+            throw new RuntimeException("Failed to delete old version of AST builder");
+        }
+        if (!FileWorker.UnZip(getClass().getResourceAsStream("/SyntaxTreeBuilder.zip"), LocalFiles.BackendFolder)) {
+            throw new RuntimeException("Failed to unzip new version of AST builder");
         }
     }
 }
